@@ -12,10 +12,43 @@ char randchar() {
 }
 
 int main(int argc, const char* argv[]) {
-  static char randstate[64];
-  // The size of the array affects how sophisticated a random-number generator would be.
-  initstate(1000, randstate, 31); // seed, state array, array size
-  for (int j = 0; j < 10; j++) {
-      printf("%c", randchar());
-  }
+    int currentTime = 1649189470;
+    printf("%d\n", currentTime);
+    FILE *input, *output, *output2;
+
+    static char randstate[64];
+
+    // The size of the array affects how sophisticated a random-number generator would be
+    initstate(currentTime, randstate, 31); // seed, state array, array size
+    input = fopen("hw2.tex", "r");
+    output = fopen("exOut.tex.enc", "w");
+
+    int c1, c2, c3;
+    for (int i = 0; i < 2; i++) { // check the first five characters
+        c1 = fgetc(input);
+        fputc(c1 ^ randchar(), output);
+    }
+    fclose(input);
+    fclose(output);
+
+    int foundSeed = 1;
+    output = fopen("exOut.tex.enc", "r");
+    output2 = fopen("hw2.tex.enc", "r");
+    for (int i = 0; i < 2; i++) {
+        c1 = fgetc(output);
+        c2 = fgetc(output2);
+        if (c1 != c2) {
+            foundSeed = 0;
+            break;
+        }
+    }
+    fclose(output);
+    fclose(output2);
+
+    if (foundSeed) {
+        printf("Found Seed!");
+        printf("%d", testTime);
+        break;
+    }
+    rollback += 1;
 }
