@@ -12,19 +12,13 @@ char randchar() {
 }
 
 int main(int argc, const char* argv[]) {
-  int currentTime = 1649190000;
-  printf("%d\n", currentTime);
-  int rollback = 1;
-  int testTime;
-  
-  while (1) {
+  for (int time = 1649190000; time--; time >= 1649189470) {
     static char randstate[64];
     FILE *input, *output, *output2;
 
     // The size of the array affects how sophisticated a random-number generator would be
-    testTime = currentTime - rollback;
-    initstate(testTime, randstate, 31); // seed, state array, array size
-    printf("%d\n", testTime);
+    initstate(time, randstate, 31); // seed, state array, array size
+    printf("%d\n", time);
 
     input = fopen("hw2.tex", "r");
     output = fopen("exOut.tex.enc", "w");
@@ -52,10 +46,9 @@ int main(int argc, const char* argv[]) {
     fclose(output2);
     
     if (foundSeed) {
-      printf("Found Seed!");
-      printf("%d", testTime);
+      printf("Found Seed!\n");
+      printf("%d", time);
       break;
     }
-    rollback += 1;
   }
 }
