@@ -1,0 +1,122 @@
+%%%%%%%%%%%%%%%%
+% Set options
+
+\newcommand{\settitle}{Homework 1: Many-time pad}
+\newcommand{\course}{CSE 207B}
+\newcommand{\coursename}{Applied Cryptography}
+\newcommand{\assigndate}{March 29, 2022}
+\newcommand{\duedate}{Thursday, April 7}
+
+%%%%%%%%%%%%%%%%
+
+\documentclass[letterpaper,12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{fancyvrb}
+\usepackage{amsmath,amsthm,amssymb,amsfonts, mathrsfs, mathtools}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\usepackage[protrusion=true,expansion=auto]{microtype}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%\usepackage{mathptmx}
+\usepackage{textcomp}
+\usepackage[
+  breaklinks=true,colorlinks=true,linkcolor=black,%
+  citecolor=black,urlcolor=black,bookmarks=false,bookmarksopen=false,%
+  pdfauthor={\course},%
+  pdftitle={\settitle},%
+  pdftex]{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\renewcommand{\ttdefault}{cmtt}
+\def\textsb#1{{\fontseries{sb}\selectfont #1}}
+
+\newcommand{\problemsetdone}{\hfill$\Box{}$}
+
+\newcommand{\htitle}
+{
+    \vbox to 0.25in{}
+    \noindent\parbox{\textwidth}
+    {
+        \course\hfill \assigndate\newline
+        \coursename\hfill
+        Due: \duedate \vspace*{-.5ex}\newline
+        \mbox{}\hrulefill\mbox{}
+    }
+    \vspace{8pt}
+    \begin{center}{\Large\bf{\settitle}}\end{center}
+}
+\newcommand{\handout}
+{
+    \thispagestyle{empty}
+    \markboth{}{}
+    \pagestyle{plain}
+    \htitle
+}
+
+\newcommand{\problemsetheader}
+{
+Your homework should be submitted electronically via Gradescope before class on \duedate.  Please use \LaTeX to format your solutions and submit as \texttt{hw1-solutions.pdf} along with the code you used to solve the first part, which Gradescope expects to be called \texttt{hw1-sol.py}.  Please credit any collaborators you worked with and any sources you used.  You may use the following solution template: \\
+\url{https://cseweb.ucsd.edu/classes/sp22/cse207B-a/hw1/hw1-solutions.tex}.
+
+\medskip
+
+You can find the Latex source used to generate this document at \\ \url{https://cseweb.ucsd.edu/classes/sp22/cse207B-a/hw1/hw1.tex}.
+
+\hrulefill
+
+\bigskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout
+\setlength{\parindent}{0pt}
+\problemsetheader
+
+\begin{enumerate}
+\setcounter{enumi}{-1}
+\item Describe how you solved the decryption challenge.  Include any code you wrote as a separate file.
+
+\item 
+
+We may also define a ``multiplication mod $p$'' variant of the one-time pad.  This is a cipher $(\operatorname{Enc}, \operatorname{Dec})$, defined over $(\mathcal{K},\mathcal{M}, \mathcal{C})$, where $\mathcal{K} := \mathcal{M} := \mathcal{C} := \{1, \dots, p-1\}$, where $p$ is a prime.  Encryption and decryption are defined as follows:
+
+\[
+\operatorname{Enc}_k(m) := k \cdot m \bmod p \qquad \operatorname{Dec}_k(c) := k^{-1} \cdot c \bmod p.
+\]
+Here, $k^{-1}$ denotes the multiplicative inverse of $k$ modulo $p$.  Verify the correctness property for this cipher and prove that is perfectly secure.
+
+\item
+
+Let $p$ be an odd prime. Prove that for all integers $x$ relatively prime to $p$, $x^{\frac{p-1}{2}} \equiv \pm 1 \pmod{p}$. 
+You are free to assume Fermat's little theorem, which says that if $p$ is prime and $x$ is not divisible by $p$, then $x^{p-1} \equiv 1 \pmod{p}$.
+You may also use the fact that when working mod a prime, a degree-$d$ polynomial can have no more than $d$ roots.
+
+\item
+
+Two standards committees propose to save bandwidth by combining compression (such as the Lempel-Ziv algorithm used in the zip and gzip programs) with encryption.  Both committees plan on using the variable length one-time pad for encryption.
+
+\begin{itemize}
+\item One committee proposes to compress messages before encrypting them.  Explain why this is a bad idea.
+
+\textit{\textbf{Hint:}} Recall that compression can significantly shrink the size of some messages while having little impact on the length of other messages.
+
+\item The other committee proposes to compress ciphertexts after encryption.  Explain why this is a bad idea.
+
+\end{itemize}
+
+\end{enumerate}
+\vfill
+
+\end{document}
