@@ -14,8 +14,7 @@ char randchar() {
 int main(int argc, const char* argv[]) {
   static char randstate[64];
   // The size of the array affects how sophisticated a random-number generator would be
-  initstate(1649627809,randstate,31); // seed, state array, array size
-    // 1649628066
+  initstate(1649189470, randstate, 31); // seed, state array, array size
 
   FILE *input, *output;
   input = fopen("hw2.tex", "r");
@@ -25,8 +24,7 @@ int main(int argc, const char* argv[]) {
   char randC;
   while ((c = fgetc(input)) != EOF)
   {
-    randC = randchar();
-    fputc(c ^ randC,output);
+    fputc(c ^ randchar(), output);
   } 
 
   fclose(input);
