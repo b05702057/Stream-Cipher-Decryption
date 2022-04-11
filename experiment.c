@@ -12,21 +12,19 @@ char randchar() {
 }
 
 int main(int argc, const char* argv[]) {
-  int currentTime = time(NULL);
+  int currentTime = 1649190000;
   printf("%d\n", currentTime);
   int rollback = 1;
   int testTime;
-  FILE *input, *output, *output2;
-
+  
   while (1) {
     static char randstate[64];
-    
+    FILE *input, *output, *output2;
+
     // The size of the array affects how sophisticated a random-number generator would be
     testTime = currentTime - rollback;
     initstate(testTime, randstate, 31); // seed, state array, array size
-    // if (testTime % 10000 == 0) {
-      printf("%d\n", testTime);
-    // }
+    printf("%d\n", testTime);
 
     input = fopen("hw2.tex", "r");
     output = fopen("exOut.tex.enc", "w");
