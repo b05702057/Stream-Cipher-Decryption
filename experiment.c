@@ -3,9 +3,12 @@
 #include <time.h>
 
 //Return a byte at a time of the rand() keystream
-char randchar() {
+char randchar(int reset) {
   static int key;
   static int i = 0; // doesn't get destroyed when the function is done
+  if (reset == 0) {
+    i = 0;
+  }
   i = i % 4;
   if (i == 0) key = rand();
   return ((char *)(&key))[i++]; // (char *) cast the address into a list of characters
@@ -26,9 +29,9 @@ int main(int argc, const char* argv[]) {
     output = fopen("exOut.tex.enc", "w"); // experiment output
     
     int c1, c2, c3;
-    for (int i = 0; i < 2; i++) { // check the first five characters
+    for (int i = 0; i < 16; i++) { // check the first 16 characters
       c1 = fgetc(input);
-      fputc(c1 ^ randchar(), output);
+      fputc(c1 ^ randchar(i), output);
     }
     fclose(input);
     fclose(output);
@@ -36,7 +39,7 @@ int main(int argc, const char* argv[]) {
     int foundSeed = 1;
     output = fopen("exOut.tex.enc", "r");
     output2 = fopen("hw2.tex.enc", "r");
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 16; i++) {
       c1 = fgetc(output);
       c2 = fgetc(output2);
       if (c1 != c2) {
