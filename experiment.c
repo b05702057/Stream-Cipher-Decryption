@@ -12,16 +12,18 @@ char randchar() {
 }
 
 int main(int argc, const char* argv[]) {
-  for (int time = 1649190000; time--; time >= 1649189470) {
+  for (unsigned curTime = time(NULL); curTime >= 0; curTime--) {
     static char randstate[64];
     FILE *input, *output, *output2;
 
     // The size of the array affects how sophisticated a random-number generator would be
-    initstate(time, randstate, 31); // seed, state array, array size
-    printf("%d\n", time);
+    initstate(curTime, randstate, 31); // seed, state array, array size
+    if (curTime % 10000 == 0) {
+    	printf("%d\n", curTime);
+    }
 
     input = fopen("hw2.tex", "r");
-    output = fopen("exOut.tex.enc", "w");
+    output = fopen("exOut.tex.enc", "w"); // experiment output
     
     int c1, c2, c3;
     for (int i = 0; i < 2; i++) { // check the first five characters
@@ -47,8 +49,8 @@ int main(int argc, const char* argv[]) {
     
     if (foundSeed) {
       printf("Found Seed!\n");
-      printf("%d", time);
-      break;
+      printf("%d", curTime); // 1649189470
+      return 0;
     }
   }
 }
