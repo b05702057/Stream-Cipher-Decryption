@@ -1,0 +1,111 @@
+%%%%%%%%%%%%%%%%
+% Set options
+
+\newcommand{\settitle}{Homework 2}
+\newcommand{\course}{CSE 207B}
+\newcommand{\coursename}{Applied Cryptography}
+\newcommand{\assigndate}{April 5, 2022}
+\newcommand{\duedate}{Thursday, April 14}
+
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\e}{\epsilon}
+\newtheorem{theorem}{Theorem}
+
+%%%%%%%%%%%%%%%%
+
+\documentclass[letterpaper,12pt]{article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{fancyvrb}
+\usepackage[protrusion=true,expansion=auto]{microtype}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%\usepackage{mathptmx}
+\usepackage{textcomp}
+\usepackage[
+  breaklinks=true,colorlinks=true,linkcolor=black,%
+  citecolor=black,urlcolor=black,bookmarks=false,bookmarksopen=false,%
+  pdfauthor={\course},%
+  pdftitle={\settitle},%
+  pdftex]{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\renewcommand{\ttdefault}{cmtt}
+\def\textsb#1{{\fontseries{sb}\selectfont #1}}
+
+\newcommand{\problemsetdone}{\hfill$\Box{}$}
+
+\newcommand{\htitle}
+{
+    \vbox to 0.25in{}
+    \noindent\parbox{\textwidth}
+    {
+        \course\hfill \assigndate\newline
+        \coursename\hfill 
+        Due: \duedate \vspace*{-.5ex}\newline
+        \mbox{}\hrulefill\mbox{}
+    }
+    \vspace{8pt}
+    \begin{center}{\Large\bf{\settitle}}\end{center}
+}
+\newcommand{\handout}
+{
+    \thispagestyle{empty}
+    \markboth{}{}
+    \pagestyle{plain}
+    \htitle
+}
+
+\newcommand{\problemsetheader}
+{
+Your homework should be submitted electronically via Gradescope before class on the due date.  Please type up your solutions to the following problems using Latex and submit in pdf form, along with text files containing the code you used to solve the first part.  Please credit any collaborators you worked with and any sources you used.
+
+\medskip
+
+\hrulefill
+
+\bigskip
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\E}{\operatorname{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Enc}{\operatorname{Enc}}
+\newcommand{\Dec}{\operatorname{Dec}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\handout
+\setlength{\parindent}{0pt}
+\problemsetheader
+
+\begin{enumerate}
+
+\item[0.] Describe how you solved the decryption challenge.
+
+\item Let $A$ be a fixed $m \times n$ matrix with $m > n$ whose entries are all binary.  Consider the following PRG $G : \{0,1\}^n \rightarrow \{0,1\}^m$ defined by
+  \[
+  G(s) := A \cdot s \bmod 2
+  \]
+  where $A \cdot s \bmod 2$ denotes a matrix-vector product where all elements of the resulting vector are reduced modulo 2.  Show that this PRG is insecure no matter what matrix $A$ is used.
+
+\item Let us study the security of a $4\Enc$ construction where a block cipher $(\Enc, \Dec)$ defined over a key space $K$ and a message space $X$ is iterated four times using four different keys: $4\Enc_{k_1,k_2,k_3,k_4}(m) := \Enc_{k_4}(\Enc_{k_3}(\Enc_{k_2}(\Enc_{k_1}(m))))$.
+
+  \begin{enumerate}
+  \item Show that there is a meet-in-the-middle attack on $4\Enc$ that recovers the secret key in time $|K|^2$ and memory space $|K|^2$.
+    
+    \item Suppose $|K| = |X|$.  Show that there is a meet-in-the-middle attack on $4\Enc$ that recovers the secret key in time $|K|^2$, but only uses memory space $|K|$.  If you get stuck see~\cite{doks12}.
+  
+  \end{enumerate}
+\end{enumerate}
+\vfill
+
+\begin{thebibliography}{1}
+\bibitem{doks12} I. Dinur, O. Dunkelman, N. Keller, and A. Shamir. Efficient dissection of composite problems, with applications to cryptanalysis, knapsacks, and combinatorial search problems. In
+\textit{Advances in Cryptology--CRYPTO 2012}, pages 719--740. 2012.
+  
+\end{thebibliography}
+
+\end{document}
